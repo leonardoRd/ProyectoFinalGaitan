@@ -6,7 +6,6 @@ let varId,varNombre,varPrecioVenta,varPrecioAlquiler,varAmbientes,varDireccion,v
 let inmuebles = [];
 let inmuebleById, btnReset;
 
-
 /* Variable para saber que modo de ejecucion es, si es cero funciona como un nuevo registo
  Si es distinto de cero es modo editar */
 let idEditar = 0;
@@ -52,17 +51,19 @@ function obtenerValores() {
     varDireccion = direccion.value;
     varDescripcion = descripcion.value;
     varAlquilado = alquilado.value;
+    varAlquilado = alquilado.checked ? alquilado.value : '';
 }
 
 // Si el inmueble no existe lo carga al array y al localStorage
 function validarFormInmueble(event) {
     event.preventDefault();    
     obtenerValores();
+    let estaAlquilado = varAlquilado == "1" ? true : false;   
     if (!idEditar) {
-        // Modo Nuevo        
+        // Modo Nuevo                
         const idExiste = inmuebles.some((inmueble) => Number(inmueble.id) === Number(varId));
-        if (!idExiste) {        
-            let inmuebleNuevo = new Inmueble(varId,varNombre,varPrecioVenta,varPrecioAlquiler,varAmbientes,varDireccion,varDescripcion,varAlquilado);
+        if (!idExiste) {                             
+            let inmuebleNuevo = new Inmueble(varId,varNombre,varPrecioVenta,varPrecioAlquiler,varAmbientes,varDireccion,varDescripcion,estaAlquilado);
             inmuebles.push(inmuebleNuevo);                
             crearInmuebleServer(inmuebleNuevo);
             formulario.reset();
@@ -72,7 +73,7 @@ function validarFormInmueble(event) {
         }    
     }else{
         //Modo Editar
-        let inmuebleAActualizar = new Inmueble(varId,varNombre,varPrecioVenta,varPrecioAlquiler,varAmbientes,varDireccion,varDescripcion,varAlquilado);
+        let inmuebleAActualizar = new Inmueble(varId,varNombre,varPrecioVenta,varPrecioAlquiler,varAmbientes,varDireccion,varDescripcion,estaAlquilado);
         console.log(inmuebleAActualizar)
         actualizarInmuebleServer(inmuebleAActualizar);
         formulario.reset();        
@@ -80,7 +81,7 @@ function validarFormInmueble(event) {
     
 }
 
-function agregarInmuebleStorage() {
+/*function agregarInmuebleStorage() {
     let inmueblesJSON = JSON.stringify(inmuebles);
     localStorage.setItem("inmuebles", inmueblesJSON);
 }
@@ -90,16 +91,16 @@ function obtenerInmueblesLocalStorage() {
     if (inmueblesJSON != undefined) {
         inmuebles = JSON.parse(inmueblesJSON);        
     }
-}
+}*/
 
 // Funciones Fetch
-
 // Metodo GET
 function consultarInmueblesServer() {
     fetch("https://642e165a2b883abc6406c24c.mockapi.io/Inmuebles")    
         .then((response) => response.json())
         .then((jsonResponse) => {
-            inmuebles = jsonResponse;            
+            inmuebles = jsonResponse;    
+            id.readOnly = false;                  
         });        
 }
 
@@ -172,6 +173,7 @@ function completarElementosFormulario() {
     let inmuebleBuscado = inmuebleById;
     if (inmuebleBuscado) {        
         id.value = inmuebleBuscado.id;
+        id.readOnly = true;
         nombre.value = inmuebleBuscado.nombre;
         precioVenta.value = inmuebleBuscado.precioVenta;
         precioAlquiler.value = inmuebleBuscado.precioAlquiler;    
@@ -203,8 +205,7 @@ function verificarModoEjecucion() {
 }
 
 // Funcion principal
-function main() {
-    //localStorage.clear();    
+function main() {    
     inicializarElementos();
     inicializarEventos();
 

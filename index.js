@@ -49,8 +49,7 @@ function abrirModalAgregarProducto() {
     valorABuscar.value = "";
 }
   
-function cerrarModalAgregarProducto() {
-    //formulario.reset();
+function cerrarModalAgregarProducto() {    
     modal.hide();
 }
 
@@ -79,18 +78,19 @@ function mostrarCardEnModal(inmuebleEncontrado) {
             <p class="card-text">Descripción:
                 <b>${inmuebleEncontrado.descripcion}</b>
             </p>
+            
         </div>`;
     contenedorModal.append(card);
 
 }
 
-function obtenerInmueblesLocalStorage() {
+/*function obtenerInmueblesLocalStorage() {
     let inmueblesJSON = localStorage.getItem("inmuebles");
     if (inmueblesJSON != undefined) {
         inmuebles = JSON.parse(inmueblesJSON);
         mostrarProductos();
     }
-}
+}*/
 
 // Funciones Fetch
 function consultarInmueblesServer() {
@@ -138,6 +138,9 @@ function mostrarProductos() {
             <p class="card-text">Descripción:
                 <b>${elem.descripcion}</b>
             </p>
+            <p class="card-text">Alquilado:
+                <b>${elem.alquilado}</b>
+            </p>
             </div>
             <div class="card-footer text-center">
                 <button class="btn btn-danger" id="botonEliminar-${elem.id}" >Eliminar</button>
@@ -147,7 +150,7 @@ function mostrarProductos() {
         contenedorInmueblesHome.append(columna);
 
         let botonEliminar = document.getElementById(`botonEliminar-${elem.id}`);
-        botonEliminar.onclick = () => eliminarProducto(elem.id);
+        botonEliminar.onclick = () => eliminarInmueble(elem.id);
 
         let botonEditar = document.getElementById(`botonEditar-${elem.id}`);        
         botonEditar.addEventListener('click', function() {
@@ -160,7 +163,7 @@ function mostrarProductos() {
     });
 }
 
-function eliminarProducto(idInmueble) {
+function eliminarInmueble(idInmueble) {
     Swal.fire({
         title: 'Está seguro?',
         text: "¡No podrás revertir esto!",
@@ -218,8 +221,7 @@ function eliminarStorage() {
 
 function main() {
     inicializarElementos();   
-    inicializarEventosIndex(); 
-    //obtenerInmueblesLocalStorage();    
+    inicializarEventosIndex();      
     consultarInmueblesServer();
 }
     
