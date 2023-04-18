@@ -27,6 +27,7 @@ function inicializarEventosIndex() {
     }
 }
 
+// Muestra un modal con el inmueble encontrado
 function abrirModalBuscarInmueble() {
     let nombreInmueble = valorABuscar.value;    
     const inmuebleAbuscar = inmuebles.find(function(elemento) {
@@ -53,6 +54,7 @@ function cerrarModalBuscarInmueble() {
     modal.hide();
 }
 
+// Muestra el inmueble encontrado de forma de la clase card en el modal
 function mostrarCardEnModal(inmuebleEncontrado) {
     contenedorModal.innerHTML = "";
     let card = document.createElement("div");
@@ -94,6 +96,7 @@ function consultarInmueblesServer() {
         });
 }
 
+// Elimina del servidor el inmueble seleccionado
 function eliminarInmuebleServer(id) {
     fetch(`https://642e165a2b883abc6406c24c.mockapi.io/Inmuebles/${id}`, {
       method: "DELETE",      
@@ -102,6 +105,7 @@ function eliminarInmuebleServer(id) {
       });
 }
 
+// Muestra todos los inmuebles cargados en el servidor
 function mostrarProductos() {
     contenedorInmueblesHome.innerHTML = "";
     inmuebles.forEach(elem => {
@@ -155,6 +159,7 @@ function mostrarProductos() {
     });
 }
 
+// Muestra un mensaje para confirmar si desea eliminar
 function eliminarInmueble(idInmueble) {
     Swal.fire({
         title: 'Está seguro?',
@@ -171,6 +176,7 @@ function eliminarInmueble(idInmueble) {
         })    
 }
 
+// Borra el inmueble del arreglo, de la pantalla y del server
 function borrarInmuebleConfirmado(idInmueble) {
     let columnaBorrar = document.getElementById(`columna-${idInmueble}`);
     let indiceBorrar = inmuebles.findIndex(
@@ -188,7 +194,7 @@ function borrarInmuebleConfirmado(idInmueble) {
     })     
 }
 
-
+// Borra el storage, donde se almacena el id del inmueble para el manejo de la funcionalidad editar
 function eliminarStorage() {
     swal.fire({
         title: 'Está seguro?',

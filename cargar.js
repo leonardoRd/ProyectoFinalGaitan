@@ -42,6 +42,7 @@ function inicializarEventos() {
     btnReset.onclick = () => borrarDatos();
 }
 
+// Captura los valores de los elementos del DOM
 function obtenerValores() {
     varId = parseFloat(id.value);
     varNombre = nombre.value;
@@ -157,6 +158,7 @@ function redirect() {
     window.location.href = '/index.html';     
 }
 
+// Funcion que le agregar los valores del inmueble a editar en pantalla
 function completarElementosFormulario() {        
     let inmuebleBuscado = inmuebleById;
     if (inmuebleBuscado) {        
@@ -181,6 +183,7 @@ function borrarDatos() {
     mostrarMensaje("warning", "Cuidado!", "Cambiado a Modo Agregar!",2000);
 }
 
+// Determina el modo de ejecución, si es modo editar o agregar
 function verificarModoEjecucion() {
     idEditar = localStorage.getItem('idEditar');
     if (!idEditar) {
