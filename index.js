@@ -20,14 +20,14 @@ function inicializarElementos() {
 function inicializarEventosIndex() {
     borrarStorage.onclick = () => eliminarStorage();
 
-    botonBuscarInmueble.onclick = abrirModalAgregarProducto;
+    botonBuscarInmueble.onclick = abrirModalBuscarInmueble;
 
     for (const boton of botonesCerrarModalBuscarInmueble) {
-        boton.onclick = cerrarModalAgregarProducto;
+        boton.onclick = cerrarModalBuscarInmueble;
     }
 }
 
-function abrirModalAgregarProducto() {
+function abrirModalBuscarInmueble() {
     let nombreInmueble = valorABuscar.value;    
     const inmuebleAbuscar = inmuebles.find(function(elemento) {
         return elemento.nombre == nombreInmueble;
@@ -49,7 +49,7 @@ function abrirModalAgregarProducto() {
     valorABuscar.value = "";
 }
   
-function cerrarModalAgregarProducto() {    
+function cerrarModalBuscarInmueble() {    
     modal.hide();
 }
 
@@ -83,14 +83,6 @@ function mostrarCardEnModal(inmuebleEncontrado) {
     contenedorModal.append(card);
 
 }
-
-/*function obtenerInmueblesLocalStorage() {
-    let inmueblesJSON = localStorage.getItem("inmuebles");
-    if (inmueblesJSON != undefined) {
-        inmuebles = JSON.parse(inmueblesJSON);
-        mostrarProductos();
-    }
-}*/
 
 // Funciones Fetch
 function consultarInmueblesServer() {

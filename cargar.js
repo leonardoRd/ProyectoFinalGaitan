@@ -81,18 +81,6 @@ function validarFormInmueble(event) {
     
 }
 
-/*function agregarInmuebleStorage() {
-    let inmueblesJSON = JSON.stringify(inmuebles);
-    localStorage.setItem("inmuebles", inmueblesJSON);
-}
-
-function obtenerInmueblesLocalStorage() {
-    let inmueblesJSON = localStorage.getItem("inmuebles");
-    if (inmueblesJSON != undefined) {
-        inmuebles = JSON.parse(inmueblesJSON);        
-    }
-}*/
-
 // Funciones Fetch
 // Metodo GET
 function consultarInmueblesServer() {
