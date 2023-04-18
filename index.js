@@ -3,7 +3,9 @@ let inmuebles = [];
 let contenedorInmueblesHome;
 let borrarStorage;
 // Variables para el manejo del modal
-let botonesCerrarModalBuscarInmueble,modalAddProduct,botonBuscarInmueble,valorABuscar,contenedorModal;
+let botonesCerrarModalBuscarInmueble,modalAddProduct,botonBuscarInmueble,contenedorModal;
+
+let valorABuscar;
 
 function inicializarElementos() {
     contenedorInmueblesHome = document.getElementById("contenedorInmuebles");    
